@@ -5,13 +5,14 @@ import DeleteIcon from "@mui/icons-material/Clear";
 import EditIcon from "@mui/icons-material/Edit";
 import EyeIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import CommentIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
-import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import styles from "./Post.module.scss";
 import { UserInfo } from "../UserInfo";
 import { PostSkeleton } from "./Skeleton";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { fetchRemovePost } from "../../redux/slices/posts";
+import { fetchRemovePost, handleLike } from "../../redux/slices/posts";
+import axios from "../../axios";
 
 export const Post = ({
   id,
@@ -37,6 +38,15 @@ export const Post = ({
   const onClickRemove = () => {
     if (window.confirm("Вы действительно хотите удалить статью?")) {
       dispath(fetchRemovePost(id));
+    }
+  };
+
+  const handleLikeClick = async (id) => {
+    try {
+      await axios.patch(`/likeClick/${id}`);
+      dispath(handleLike(id));
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -76,7 +86,7 @@ export const Post = ({
               </li>
             ))}
           </ul>
-          {text ? `${text.slice(0, 100)}...` : ''}
+          {text ? `${text.slice(0, 100)}...` : ""}
           {children && <div className={styles.content}>{children}</div>}
           <ul className={styles.postDetails}>
             <li>
@@ -88,7 +98,7 @@ export const Post = ({
               <span>{commentsCount}</span>
             </li>
             <li>
-              <ThumbUpOffAltIcon />
+              <ThumbUpOffAltIcon onClick={() => handleLikeClick(id)} />
               <span>{likes}</span>
             </li>
           </ul>

@@ -61,7 +61,16 @@ const initialState = {
 const postsSlice = createSlice({
   name: "posts",
   initialState,
-  reducer: {},
+  reducers: {
+    handleLike: (state, action) => {
+      const id = action.payload;
+      const post = state.posts.items.find((item) => item._id === id);
+      
+      if (post) {
+        post.likes += 1;
+      }
+    },
+  },
   extraReducers: {
     // posts
     [fetchPosts.pending]: (state) => {
@@ -122,5 +131,7 @@ const postsSlice = createSlice({
     },
   },
 });
+
+export const { handleLike } = postsSlice.actions;
 
 export const postsReducer = postsSlice.reducer;
