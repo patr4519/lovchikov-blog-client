@@ -82,6 +82,7 @@ export const Home = () => {
                   viewsCount={obj.viewsCount}
                   commentsCount={obj.comments.length}
                   tags={obj.tags}
+                  likes={obj.likes}
                   isEditable={userData?._id === obj.user._id}
                 />
               )

@@ -23,6 +23,7 @@ export const Post = ({
   viewsCount,
   commentsCount,
   tags,
+  likes,
   children,
   isFullPost,
   isLoading,
@@ -88,7 +89,7 @@ export const Post = ({
             </li>
             <li>
               <ThumbUpOffAltIcon />
-              <span>{'likes'}</span>
+              <span>{likes}</span>
             </li>
           </ul>
         </div>
