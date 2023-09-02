@@ -10,7 +10,7 @@ import styles from "./Post.module.scss";
 import { UserInfo } from "../UserInfo";
 import { PostSkeleton } from "./Skeleton";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchRemovePost, handleLike } from "../../redux/slices/posts";
 import axios from "../../axios";
 
@@ -31,6 +31,8 @@ export const Post = ({
   isEditable,
 }) => {
   const dispath = useDispatch();
+  const userData = useSelector((state) => state.auth.data);
+
   if (isLoading) {
     return <PostSkeleton />;
   }
@@ -43,7 +45,7 @@ export const Post = ({
 
   const handleLikeClick = async (id) => {
     try {
-      await axios.patch(`/likeClick/${id}`);
+      await axios.patch(`/likeClick/${id}`, { userId: userData._id });
       dispath(handleLike(id));
     } catch (err) {
       console.log(err);

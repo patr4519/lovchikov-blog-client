@@ -65,9 +65,9 @@ const postsSlice = createSlice({
     handleLike: (state, action) => {
       const id = action.payload;
       const post = state.posts.items.find((item) => item._id === id);
-      
+
       if (post) {
-        post.likes += 1;
+        post.likes.count += 1;
       }
     },
   },
