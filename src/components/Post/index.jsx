@@ -5,7 +5,7 @@ import DeleteIcon from "@mui/icons-material/Clear";
 import EditIcon from "@mui/icons-material/Edit";
 import EyeIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import CommentIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
-
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import styles from "./Post.module.scss";
 import { UserInfo } from "../UserInfo";
 import { PostSkeleton } from "./Skeleton";
@@ -85,6 +85,10 @@ export const Post = ({
             <li>
               <CommentIcon />
               <span>{commentsCount}</span>
+            </li>
+            <li>
+              <ThumbUpOffAltIcon />
+              <span>{'likes'}</span>
             </li>
           </ul>
         </div>
