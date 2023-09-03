@@ -34,7 +34,7 @@ export const Post = ({
 }) => {
   const dispath = useDispatch();
   const navigate = useNavigate();
-  
+
   const userData = useSelector((state) => state.auth.data);
   const userId = userData?._id;
 
@@ -110,7 +110,10 @@ export const Post = ({
             </li>
             <li>
               {userLikes?.includes(userId) ? (
-                <ThumbUpIcon onClick={() => handleLikeClick(id)} />
+                <ThumbUpIcon
+                  sx={{ color: "green" }}
+                  onClick={() => handleLikeClick(id)}
+                />
               ) : (
                 <ThumbUpOffAltIcon onClick={() => handleLikeClick(id)} />
               )}

@@ -16,6 +16,7 @@ import { List, ListItemButton, ListItemText, Typography } from "@mui/material";
 const navigationItems = [
   { to: "/news", label: "Новые" },
   { to: "/popular", label: "Популярные" },
+  { to: "/rated", label: "Лучшие" },
 ];
 
 export const Home = () => {
