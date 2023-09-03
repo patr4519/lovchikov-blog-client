@@ -46,7 +46,7 @@ export const Post = ({
   const handleLikeClick = async (id) => {
     try {
       await axios.patch(`/likeClick/${id}`, { userId: userData._id });
-      dispath(handleLike(id));
+      dispath(handleLike({ postId: id, userId: userData._id }));
     } catch (err) {
       console.log(err);
     }
