@@ -6,10 +6,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import EyeIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import CommentIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import styles from "./Post.module.scss";
 import { UserInfo } from "../UserInfo";
 import { PostSkeleton } from "./Skeleton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRemovePost, handleLike } from "../../redux/slices/posts";
 import axios from "../../axios";
@@ -25,13 +26,17 @@ export const Post = ({
   commentsCount,
   tags,
   likes,
+  userLikes,
   children,
   isFullPost,
   isLoading,
   isEditable,
 }) => {
   const dispath = useDispatch();
+  const navigate = useNavigate();
+  
   const userData = useSelector((state) => state.auth.data);
+  const userId = userData?._id;
 
   if (isLoading) {
     return <PostSkeleton />;
@@ -44,6 +49,10 @@ export const Post = ({
   };
 
   const handleLikeClick = async (id) => {
+    if (!userData) {
+      navigate("/login");
+      return;
+    }
     try {
       await axios.patch(`/likeClick/${id}`, { userId: userData._id });
       dispath(handleLike({ postId: id, userId: userData._id }));
@@ -100,7 +109,11 @@ export const Post = ({
               <span>{commentsCount}</span>
             </li>
             <li>
-              <ThumbUpOffAltIcon onClick={() => handleLikeClick(id)} />
+              {userLikes?.includes(userId) ? (
+                <ThumbUpIcon onClick={() => handleLikeClick(id)} />
+              ) : (
+                <ThumbUpOffAltIcon onClick={() => handleLikeClick(id)} />
+              )}
               <span>{likes}</span>
             </li>
           </ul>
