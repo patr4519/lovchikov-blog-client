@@ -9,6 +9,8 @@ export const fetchPosts = createAsyncThunk(
       url = "/news";
     } else if (category === "popular") {
       url = "/popular";
+    } else if (category === "rated") {
+      url = "/rated";
     }
     const { data } = await axios.get(url);
     return data;

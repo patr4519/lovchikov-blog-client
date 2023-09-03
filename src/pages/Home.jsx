@@ -3,15 +3,10 @@ import Grid from "@mui/material/Grid";
 import { Post } from "../components/Post";
 import { TagsBlock } from "../components/TagsBlock";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchPopularPosts,
-  fetchPosts,
-  fetchTags,
-  fetchComments,
-} from "../redux/slices/posts";
+import { fetchPosts, fetchTags, fetchComments } from "../redux/slices/posts";
 import { Link, useLocation } from "react-router-dom";
 import { SideCommentsBlock } from "../components/SideCommentsBlock";
-import { List, ListItemButton, ListItemText, Typography } from "@mui/material";
+import { List, ListItemButton, ListItemText } from "@mui/material";
 
 const navigationItems = [
   { to: "/news", label: "Новые" },
@@ -31,9 +26,11 @@ export const Home = () => {
 
   useEffect(() => {
     if (location.pathname.includes("popular")) {
-      dispatch(fetchPosts('popular'));
+      dispatch(fetchPosts("popular"));
+    } else if (location.pathname.includes("rated")) {
+      dispatch(fetchPosts("rated"));
     } else {
-      dispatch(fetchPosts('news'));
+      dispatch(fetchPosts("news"));
     }
     dispatch(fetchTags());
     dispatch(fetchComments());
@@ -84,7 +81,7 @@ export const Home = () => {
                   commentsCount={obj.comments.length}
                   tags={obj.tags}
                   likes={obj.likes.count}
-                  userLikes = {obj.likes.users}
+                  userLikes={obj.likes.users}
                   isEditable={userData?._id === obj.user._id}
                 />
               )
