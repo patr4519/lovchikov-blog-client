@@ -63,17 +63,18 @@ const postsSlice = createSlice({
   initialState,
   reducers: {
     handleLike: (state, action) => {
-      const id = action.payload.postId;
-      const userId = action.payload.userId;
-      const post = state.posts.items.find((item) => item._id === id);
+      const { postId, userId } = action.payload;
+      const post = state.posts.items.find((item) => item._id === postId);
       const isLiked = post.likes.users.includes(userId);
 
-      if (post && !isLiked) {
+      if (!post) return state;
+
+      if (!isLiked) {
         post.likes.count += 1;
         post.likes.users.push(userId);
-      } else if (post && isLiked) {
+      } else {
         post.likes.count -= 1;
-        post.likes.users = [];
+        post.likes.users = post.likes.users.filter((id) => id !== userId);
       }
     },
   },
