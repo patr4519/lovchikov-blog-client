@@ -44,6 +44,8 @@ export const FullPost = () => {
         title={data.title}
         imageUrl={data.imageUrl ? `http://localhost:4444${data.imageUrl}` : ""}
         user={data.user}
+        likes={data.likes.count}
+        userLikes={data.likes.users}
         createdAt={data.createdAt}
         viewsCount={data.viewsCount}
         commentsCount={data.comments.length}
