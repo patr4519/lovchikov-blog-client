@@ -108,17 +108,19 @@ export const Post = ({
               <CommentIcon />
               <span>{commentsCount}</span>
             </li>
-            <li>
-              {userLikes?.includes(userId) ? (
-                <ThumbUpIcon
-                  sx={{ color: "green" }}
-                  onClick={() => handleLikeClick(id)}
-                />
-              ) : (
-                <ThumbUpOffAltIcon onClick={() => handleLikeClick(id)} />
-              )}
-              <span>{likes}</span>
-            </li>
+            {!isFullPost && (
+              <li>
+                {userLikes?.includes(userId) ? (
+                  <ThumbUpIcon
+                    sx={{ color: "green" }}
+                    onClick={() => handleLikeClick(id)}
+                  />
+                ) : (
+                  <ThumbUpOffAltIcon onClick={() => handleLikeClick(id)} />
+                )}
+                <span>{likes}</span>
+              </li>
+            )}
           </ul>
         </div>
       </div>
